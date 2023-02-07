@@ -3,6 +3,7 @@ import {UserResponseDTO} from "../dto/User/UserResponse";
 import {ProfileContext} from "../providers/ProfileProvider";
 import React from "react";
 import useSnackbar from "./UseSnackbar";
+import {CustomErrorResponseUnit} from "../errors/api";
 
 export default function useAuth() {
     const {setUser} = React.useContext(ProfileContext);
@@ -13,7 +14,9 @@ export default function useAuth() {
             setUser(response.data);
             return response.data as UserResponseDTO;
         } catch (e: any) {
-            openErrorSnackBar(e?.response?.data);
+            e?.response?.data?.length ?
+                e.response.data.forEach((error: CustomErrorResponseUnit) => openErrorSnackBar(error.message))
+                : openErrorSnackBar("Something went wrong");
         }
         return null;
     }
@@ -23,7 +26,9 @@ export default function useAuth() {
             setUser(response.data);
             return response.data as UserResponseDTO;
         } catch (e: any) {
-            openErrorSnackBar(e?.response?.data);
+            e?.response?.data?.length ?
+                e.response.data.forEach((error: CustomErrorResponseUnit) => openErrorSnackBar(error.message))
+                : openErrorSnackBar("Something went wrong");
         }
         return null;
     }

@@ -1,8 +1,14 @@
 import jwt from "jsonwebtoken";
 import {UserResponseDTO} from "../../dto/User/UserResponse";
+import {UnauthorizedError} from "../../errors/api";
 
 export function CurrentUserController(token: string) {
-    const user = jwt.verify(token, process.env.JWT_SECRET!) as UserResponseDTO;
+    let user
+    try {
+        user = jwt.verify(token, process.env.JWT_SECRET!) as UserResponseDTO;
+    } catch (e) {
+        throw new UnauthorizedError()
+    }
     const userResponseDTO: UserResponseDTO = {
         id: user.id,
         name: user.name,

@@ -1,27 +1,28 @@
-import prisma from "../../lib/prisma";
+import prisma from "../../prisma/prisma";
 import {UserRequestDTO} from "../../dto/User/UserRequest";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {UserResponseDTO} from "../../dto/User/UserResponse";
+import {DatabaseConnectionError, UnauthorizedError} from "../../errors/api";
 
 export async function LoginController(userDTO: UserRequestDTO) {
-    const user = await prisma.user.findUnique({
-        where: {
-            email: userDTO.email
-        }
-    })
+    let user
+    try{
+        user= await prisma.user.findUnique({
+            where: {
+                email: userDTO.email
+            }
+        })
+    } catch (e) {
+        throw new DatabaseConnectionError()
+    }
+
     if (!user) {
-        return {
-            user: null,
-            token: null
-        };
+        throw new UnauthorizedError()
     }
     const passwordMatch = bcrypt.compareSync(userDTO.password, user.password_hash);
     if (!passwordMatch) {
-        return {
-            user: null,
-            token: null
-        }
+        throw new UnauthorizedError()
     }
     const userResponseDTO: UserResponseDTO = {
         id: user.id,

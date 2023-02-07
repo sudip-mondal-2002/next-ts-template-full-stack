@@ -1,6 +1,6 @@
 import {ProfileContainer} from "../components/container/profile/ProfileContainer";
 import {NextPageContext} from "next";
-import {CurrentUserController} from "../controllers/auth/currentUser";
+import {CurrentUserController} from "../controllers/auth/CurrentUser";
 import {UserResponseDTO} from "../dto/User/UserResponse";
 import React from "react";
 import {ProfileContext} from "../providers/ProfileProvider";
@@ -13,7 +13,7 @@ export default function Home({user}: { user: UserResponseDTO }) {
     return (<ProfileContainer/>)
 }
 
-export const getServerSideProps = async (ctx: NextPageContext) => {
+Home.getInitialProps = async (ctx: NextPageContext) => {
     const cookies: any = ctx.req?.headers.cookie?.split(";").map(cookie => cookie.split("=")).reduce((acc, [key, value]) => ({
         ...acc,
         [key.trim()]: value
@@ -25,13 +25,11 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
         });
         ctx.res?.end();
         return {
-            props: {}
+            user: null
         }
     }
     const user = await CurrentUserController(token);
     return {
-        props: {
-            user
-        }
+        user
     }
 }

@@ -6,22 +6,20 @@ export default function AuthPage() {
     return <AuthContainer/>
 }
 
-export const getServerSideProps = async (ctx: NextPageContext) => {
+AuthPage.getInitialProps = (ctx: NextPageContext) => {
     const cookies: any = ctx.req?.headers.cookie?.split(";").map(cookie => cookie.split("=")).reduce((acc, [key, value]) => ({
         ...acc,
         [key.trim()]: value
     }), {});
     const token = cookies?.token;
     if (!token) {
-        return {props: {}}
+        return {token : null}
     }
     ctx.res?.writeHead(302, {
         Location: "/"
     });
     ctx.res?.end();
     return {
-        props: {
-            token
-        }
+        token
     };
 }

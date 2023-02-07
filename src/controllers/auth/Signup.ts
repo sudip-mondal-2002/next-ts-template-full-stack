@@ -1,18 +1,24 @@
-import prisma from "../../lib/prisma";
+import prisma from "../../prisma/prisma";
 import {UserRequestDTO} from "../../dto/User/UserRequest";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {UserResponseDTO} from "../../dto/User/UserResponse";
+import {DatabaseConnectionError} from "../../errors/api";
 
 export async function SignupController(userDTO: UserRequestDTO) {
     const passwordHash = bcrypt.hashSync(userDTO.password, 10);
-    let user = await prisma.user.create({
-        data: {
-            name: userDTO.name + "",
-            email: userDTO.email,
-            password_hash: passwordHash
-        }
-    });
+    let user
+    try {
+        user = await prisma.user.create({
+            data: {
+                name: userDTO.name + "",
+                email: userDTO.email,
+                password_hash: passwordHash
+            }
+        });
+    } catch (e) {
+        throw new DatabaseConnectionError()
+    }
     const userResponseDTO: UserResponseDTO = {
         id: user.id,
         name: user.name,
