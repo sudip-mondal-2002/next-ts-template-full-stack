@@ -7,7 +7,7 @@ import {CustomErrorResponseUnit} from "../errors/api";
 
 export default function useAuth() {
     const {setUser} = React.useContext(ProfileContext);
-    const {openErrorSnackBar} = useSnackbar();
+    const {openErrorSnackBar, openSuccessSnackBar} = useSnackbar();
     const login = async (email: string, password: string): Promise<UserResponseDTO | null> => {
         try {
             const response = await axios.post("/api/auth/login", {email, password})
@@ -47,5 +47,16 @@ export default function useAuth() {
                 : openErrorSnackBar("Something went wrong");
         }
     }
-    return {login, signup, logout, resetPassword}
+
+    const resetPasswordRequest = async (email: string) => {
+        try {
+            await axios.post("/api/auth/reset-password", {email});
+            openSuccessSnackBar("Check your email, we sent you a link to reset your password");
+        } catch (e: any) {
+            e?.response?.data?.length ?
+                e.response.data.forEach((error: CustomErrorResponseUnit) => openErrorSnackBar(error.message))
+                : openErrorSnackBar("Something went wrong");
+        }
+    }
+    return {login, signup, logout, resetPassword, resetPasswordRequest}
 }

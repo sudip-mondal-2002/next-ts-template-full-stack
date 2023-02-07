@@ -6,10 +6,9 @@ import CustomButton from "../../base/Button/CustomButton";
 import {useRouter} from "next/router";
 import useAuth from "../../../hooks/UseAuth";
 
-export function ResetPasswordContainer() {
-    const [password, setPassword] = React.useState("");
-    const router = useRouter();
-    const {resetPassword} = useAuth();
+export function ResetPasswordRequestContainer() {
+    const [email, setEmail] = React.useState("");
+    const {resetPasswordRequest} = useAuth();
     return <CustomContainer sx={{
         display: "flex",
         flexDirection: "column",
@@ -28,13 +27,12 @@ export function ResetPasswordContainer() {
             width: "fit-content"
         }}>
             <CustomTextField
-                label={"New Password"} value={password} type={"email"} required={true}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}/>
-            <CustomButton disabled={!password} sx={{
+                label={"Email"} value={email} type={"email"} required={true}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}/>
+            <CustomButton disabled={!email} sx={{
                 marginTop: "24px",
             }} onClick={async () => {
-                await resetPassword(password, router.query.token as string)
-                await router.push("/auth");
+                await resetPasswordRequest(email)
             }}>Reset Password</CustomButton>
         </CustomContainer>
     </CustomContainer>
