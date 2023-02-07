@@ -1,4 +1,4 @@
-import prisma from "../../prisma/prisma";
+import prisma from "../../libs/prisma";
 import {UserRequestDTO} from "../../dto/User/UserRequest";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";

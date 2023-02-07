@@ -1,6 +1,6 @@
 export enum HttpHeaders {
-    AUTHORIZATION = "Authorization",
-    CONTENT_TYPE = "Content-Type",
-    ACCEPT = "Accept",
-    ORIGIN = "Origin"
+    AUTHORIZATION = "authorization",
+    CONTENT_TYPE = "content-Type",
+    ACCEPT = "accept",
+    ORIGIN = "origin"
 }

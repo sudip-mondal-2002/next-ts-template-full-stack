@@ -36,19 +36,18 @@ export function apiHandler(handler: ApiMethodHandlers) {
 
             // call method handler
             await methodHandler(req, res);
-        } catch (err) {
+        } catch (err: any) {
             // global error handler
             errorHandler(err, res);
         }
     };
 }
 
-function errorHandler(err: unknown, res: NextApiResponse<CustomErrorResponse>) {
+function errorHandler(err: Error, res: NextApiResponse<CustomErrorResponse>) {
     // Errors with statusCode >= 500 are should not be exposed
     if (err instanceof CustomError) {
         res.status(err.statusCode).json(err.serializeErrors());
     } else {
-        console.error(err);
-        res.status(500).json([{message: "Something went wrong"}]);
+        res.status(500).json([{message: `Something went wrong: ${err.message}`}]);
     }
 }

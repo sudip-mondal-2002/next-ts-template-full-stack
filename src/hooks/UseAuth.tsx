@@ -37,5 +37,15 @@ export default function useAuth() {
         setUser(undefined);
         await axios.get("/api/auth/logout");
     }
-    return {login, signup, logout}
+
+    const resetPassword = async (password: string, token:string) => {
+        try {
+            await axios.put("/api/auth/reset-password", {password, token});
+        } catch (e: any) {
+            e?.response?.data?.length ?
+                e.response.data.forEach((error: CustomErrorResponseUnit) => openErrorSnackBar(error.message))
+                : openErrorSnackBar("Something went wrong");
+        }
+    }
+    return {login, signup, logout, resetPassword}
 }
