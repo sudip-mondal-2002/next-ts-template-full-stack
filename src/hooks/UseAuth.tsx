@@ -38,7 +38,7 @@ export default function useAuth() {
         await axios.get("/api/auth/logout");
     }
 
-    const resetPassword = async (password: string, token:string) => {
+    const resetPassword = async (password: string, token: string) => {
         try {
             await axios.put("/api/auth/reset-password", {password, token});
         } catch (e: any) {

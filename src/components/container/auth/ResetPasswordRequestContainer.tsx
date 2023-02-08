@@ -3,7 +3,6 @@ import React from "react";
 import CustomTypography from "../../base/Typography/CustomTypography";
 import CustomTextField from "../../base/TextField/CustomTextField";
 import CustomButton from "../../base/Button/CustomButton";
-import {useRouter} from "next/router";
 import useAuth from "../../../hooks/UseAuth";
 
 export function ResetPasswordRequestContainer() {

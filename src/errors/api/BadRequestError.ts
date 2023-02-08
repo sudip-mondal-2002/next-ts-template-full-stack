@@ -4,7 +4,7 @@ import {HttpStatus} from "../../enums";
 export class BadRequestError extends CustomError {
     statusCode = HttpStatus.BAD_REQUEST
 
-    constructor(message='Bad Request', private field?: string) {
+    constructor(message = 'Bad Request', private field?: string) {
         super(message)
         Object.setPrototypeOf(this, BadRequestError.prototype)
     }

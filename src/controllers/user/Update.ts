@@ -5,7 +5,7 @@ import {UserUpdateDTO} from "../../dto/User/UserUpdate";
 
 export async function UpdateUserController(updatedDetails: UserUpdateDTO, token: string) {
     const currentUser = CurrentUserController(token);
-    try{
+    try {
         await prisma.user.update({
             where: {
                 id: currentUser.id

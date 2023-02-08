@@ -3,16 +3,16 @@ import {MethodNotAllowedError} from "../errors/api/MethodNotAllowedError";
 import {CustomError, CustomErrorResponse} from "../errors/api";
 
 export type Method =
-    |'GET'
-    |'DELETE'
-    |'HEAD'
-    |'OPTIONS'
-    |'POST'
-    |'PUT'
-    |'PATCH'
-    |'PURGE'
-    |'LINK'
-    |'UNLINK';
+    | 'GET'
+    | 'DELETE'
+    | 'HEAD'
+    | 'OPTIONS'
+    | 'POST'
+    | 'PUT'
+    | 'PATCH'
+    | 'PURGE'
+    | 'LINK'
+    | 'UNLINK';
 
 
 type ApiMethodHandlers = {

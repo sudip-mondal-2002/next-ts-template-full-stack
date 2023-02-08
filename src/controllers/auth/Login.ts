@@ -7,8 +7,8 @@ import {DatabaseConnectionError, UnauthorizedError} from "../../errors/api";
 
 export async function LoginController(userDTO: UserRequestDTO) {
     let user
-    try{
-        user= await prisma.user.findUnique({
+    try {
+        user = await prisma.user.findUnique({
             where: {
                 email: userDTO.email
             }

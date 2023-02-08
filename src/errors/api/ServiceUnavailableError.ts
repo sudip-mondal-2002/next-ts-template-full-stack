@@ -4,7 +4,7 @@ import {HttpStatus} from "../../enums";
 export class ServiceUnavailableError extends CustomError {
     statusCode = HttpStatus.SERVER_UNAVAILABLE
 
-    constructor(message='Service Unavailable') {
+    constructor(message = 'Service Unavailable') {
         super(message)
         Object.setPrototypeOf(this, ServiceUnavailableError.prototype)
     }

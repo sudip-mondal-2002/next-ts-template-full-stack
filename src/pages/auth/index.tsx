@@ -13,7 +13,7 @@ AuthPage.getInitialProps = (ctx: NextPageContext) => {
     }), {});
     const token = cookies?.token;
     if (!token) {
-        return {token : null}
+        return {token: null}
     }
     ctx.res?.writeHead(302, {
         Location: "/"

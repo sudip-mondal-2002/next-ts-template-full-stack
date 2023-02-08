@@ -4,7 +4,7 @@ import {HttpStatus} from "../../enums";
 export class ForbiddenError extends CustomError {
     statusCode = HttpStatus.FORBIDDEN
 
-    constructor(message='Forbidden') {
+    constructor(message = 'Forbidden') {
         super(message)
         Object.setPrototypeOf(this, ForbiddenError.prototype)
     }

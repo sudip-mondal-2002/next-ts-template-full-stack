@@ -1,6 +1,5 @@
 import React from "react";
 import {UserResponseDTO} from "../dto/User/UserResponse";
-import useSnackbar from "../hooks/UseSnackbar";
 
 export const ProfileContext = React.createContext<any>({
     user: null,

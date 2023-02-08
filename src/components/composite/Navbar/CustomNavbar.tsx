@@ -35,7 +35,7 @@ export function CustomNavbar({children}: any) {
                       vertical: -50,
                       horizontal: 'right',
                   }}>
-                <MenuItem onClick={async() => {
+                <MenuItem onClick={async () => {
                     setAnchorProfileMenu(null);
                     await router.push("/")
                 }}>Profile</MenuItem>

@@ -9,7 +9,7 @@ import axios from "axios";
 export default function Home({user}: { user: UserResponseDTO }) {
     const {setUser} = React.useContext(ProfileContext);
     React.useEffect(() => {
-        if(user) {
+        if (user) {
             setUser(user);
         } else {
 
@@ -20,8 +20,8 @@ export default function Home({user}: { user: UserResponseDTO }) {
 
 Home.getInitialProps = async (ctx: NextPageContext) => {
     const isServer = typeof window === "undefined";
-    if(!isServer) {
-        try{
+    if (!isServer) {
+        try {
             const response = await axios.get("/api/user");
             return {user: response.data};
         } catch (e: any) {

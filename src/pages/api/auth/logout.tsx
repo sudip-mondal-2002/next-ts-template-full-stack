@@ -1,5 +1,4 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {LoginController} from "../../../controllers/auth/Login";
 import {apiHandler} from "../../../middlewares/ErrorHandler";
 import {HttpStatus} from "../../../enums";
 

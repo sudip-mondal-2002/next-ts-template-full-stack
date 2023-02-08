@@ -4,7 +4,6 @@ import {Box, Tab, Tabs} from "@mui/material";
 import CustomTypography from "../../base/Typography/CustomTypography";
 import LoginContainer from "./LoginContainer";
 import SignupContainer from "./SignupContainer";
-import useSnackbar from "../../../hooks/UseSnackbar";
 
 export function AuthContainer() {
     const [status, setStatus] = React.useState<"login" | "signup">("login");

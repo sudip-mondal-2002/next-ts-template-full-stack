@@ -5,10 +5,10 @@ import {nodemailerTransporter} from "../../libs/nodemailer";
 import bcrypt from "bcrypt";
 
 export async function ResetPasswordActController(token: string, newPassword: string) {
-    let user_id = (jwt.verify(token, process.env.JWT_SECRET!) as {id: any}).id
+    let user_id = (jwt.verify(token, process.env.JWT_SECRET!) as { id: any }).id
     newPassword = bcrypt.hashSync(newPassword.trim(), 10);
     let user
-    try{
+    try {
         user = await prisma.user.update({
             where: {
                 id: user_id
@@ -19,7 +19,7 @@ export async function ResetPasswordActController(token: string, newPassword: str
     } catch (e) {
         throw new DatabaseConnectionError()
     }
-    if(!user) throw new NotFoundError();
+    if (!user) throw new NotFoundError();
     await nodemailerTransporter.sendMail({
         from: process.env.EMAIL_USER,
         to: user.email,
